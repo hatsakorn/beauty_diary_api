@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 exports.register = async (req,res,next) => {
     try{
-        console.log(req.body)
+        // console.log(req.body)
         const value = validateRegister(req.body)
         const user = await User.findOne({where:{email :value.email}})
         // console.log(value)

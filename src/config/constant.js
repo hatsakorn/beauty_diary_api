@@ -1,0 +1,6 @@
+exports.ROLE_ADMIN = "ADMIN"
+exports.ROLE_USER = "USER"
+
+exports.STATUS_PACKAGE = "PACKAGE"
+exports.STATUS_COURSE = "COURSE"
+
