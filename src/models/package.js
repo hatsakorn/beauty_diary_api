@@ -20,9 +20,24 @@ module.exports = (sequelize,DataTypes) => {
             validate:{
                 notEmpty: true
             }
+        },
+        packageImage:{
+            type:DataTypes.STRING,
+            allowNull:true,
+            validate:{
+                notEmpty: false
+            }
+        },
+        adsImage:{
+            type:DataTypes.STRING,
+            allowNull:true,
+            validate:{
+                notEmpty: false
+            }
         }
     },{
-        underscored:true
+        underscored:true,
+
     })
     Package.associate = db => {
         Package.hasMany(db.Transaction,{

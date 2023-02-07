@@ -27,9 +27,16 @@ module.exports = (sequelize,DataTypes) => {
             validate:{
                 notEmpty: true
             }
+        },
+        courseImage:{
+            type:DataTypes.STRING,
+            allowNull:true,
+            validate:{
+                notEmpty: false
+            }
         }
     },{
-        underscored:true
+        underscored:true,
     })
     Course.associate = db => {
         Course.hasMany(db.Transaction,{

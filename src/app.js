@@ -8,16 +8,18 @@ const cors = require('cors')
 const helmet = require('helmet')
 const notFouldMiddleware = require('./middlewares/not-found')
 const errorMiddleware = require('./middlewares/error')
+const authenticatedMiddleware = require('./middlewares/authenticate')
+
 
 const app = express()
 
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
-
+// sequelize.sync({force:true})
 app.use('/auth',authRoute)
-app.use('/reserve',reserveRoute)
-app.use('/package',packageRoute)
+app.use('/reserve',authenticatedMiddleware,reserveRoute)
+app.use('/package',authenticatedMiddleware,packageRoute)
 
 app.use(notFouldMiddleware)
 app.use(errorMiddleware)

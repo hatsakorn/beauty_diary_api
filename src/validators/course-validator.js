@@ -22,7 +22,7 @@ const courseSchema = Joi.object({
         'string.empty':'description is required',
         'string.base':'description must be string'
     }),
-
+    courseImage: Joi.string()
 })
 
 

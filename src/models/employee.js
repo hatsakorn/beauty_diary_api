@@ -15,7 +15,7 @@ module.exports = (sequelize,DataTypes) => {
             }
         }
     },{
-        underscored:true
+        underscored:true,
     }
     )
     employee.associate = db => {
