@@ -44,11 +44,27 @@ exports.createSchedule = async (req,res,next) => {
     }
 }
 
-exports.createTime = async (req,res,next)=> {
+exports.setTime = async (req,res,next)=> {
     try{
         const value = validateTime(req.body)
+        const sameTime = await Time.findOne({
+            where:{timeslot:value.timeslot}
+        }) 
+        if(sameTime){
+        createError('This timeslot has already been created')
+        }else{
         const result = await Time.create(value)
         res.status(200).json(result)
+        }
+    }catch(err){
+        next(err)
+    }
+}
+
+exports.getTime = async (req,res,next) => {
+    try{
+        const timeslot = await Time.findAll()
+        res.status(200).json(timeslot)
     }catch(err){
         next(err)
     }
