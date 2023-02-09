@@ -1,15 +1,7 @@
 module.exports = (sequelize,DataTypes) => {
-    const status = ['package','course']
     const Transaction = sequelize.define('Transaction',{
         paymentDetail:{
             type:DataTypes.STRING,
-            allowNull:false,
-            validate:{
-                notEmpty: true
-            }
-        },
-        porcStatus:{
-            type:DataTypes.ENUM(...status),
             allowNull:false,
             validate:{
                 notEmpty: true
@@ -27,13 +19,6 @@ module.exports = (sequelize,DataTypes) => {
         timestamps: false
     })
     Transaction.associate = db => {
-        Transaction.hasMany(db.Reservation,{
-            foreignKey:{
-                name:"transactionId",
-                allowNull:false
-            },
-            onDelete: 'RESTRICT'
-        })
         Transaction.belongsTo(db.User,{
             foreignKey:{
                 name: "userId",
@@ -44,14 +29,14 @@ module.exports = (sequelize,DataTypes) => {
             Transaction.belongsTo(db.Package,{
                 foreignKey:{
                     name: "packageId",
-                    allowNull: false
+                    allowNull: true
                 },
                 onDelete: 'RESTRICT'
         })
-            Transaction.belongsTo(db.Course,{
+            Transaction.belongsTo(db.Reservation,{
                 foreignKey:{
-                    name: "courseId",
-                    allowNull: false
+                    name: "reservationId",
+                    allowNull: true
                 },
                 onDelete: 'RESTRICT'
         })

@@ -37,9 +37,10 @@ module.exports = (sequelize,DataTypes) => {
         }
     },{
         underscored:true,
+        timestamps: false
     })
     Course.associate = db => {
-        Course.hasMany(db.Transaction,{
+        Course.hasOne(db.Reservation,{
             foreignKey:{
                 name:"courseId",
                 allowNull:false

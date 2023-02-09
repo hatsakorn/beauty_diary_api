@@ -55,7 +55,8 @@ module.exports = (sequelize,DataTypes) => {
             }
         }
     },{
-        underscored:true
+        underscored:true,
+        timestamps: false
     })
     User.associate = db => {
         User.hasMany(db.Transaction,{

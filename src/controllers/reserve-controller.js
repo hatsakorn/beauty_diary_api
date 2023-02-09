@@ -2,6 +2,7 @@ const {Course,Reservation,Time} = require('../models')
 const {validateCourse} = require('../validators/course-validator')
 const {validateReserve} = require('../validators/reserve-validator')
 const {validateTime} = require('../validators/time-validator')
+
 const createError = require('../utils/create-error')
 
 exports.selectedCourses = async(req,res,next) => {
@@ -24,8 +25,10 @@ exports.createCourses = async (req,res,next) => {
         if(isSameCourse){
             createError('Course has already created')
         }
+        if(req.user.role === "admin"){
         const result = await Course.create(value)
         res.status(200).json(result)
+    }
     }catch(err){
         next(err)
     }
@@ -33,12 +36,14 @@ exports.createCourses = async (req,res,next) => {
 
 exports.createSchedule = async (req,res,next) => {
     try{
-        // console.log('body',req.body)
-        const value = validateReserve(req.body)
-        // console.log('value',value)
-        const result = await Reservation.create(value)
-        // console.log('result',result)
+        const {title,status,date,time} = validateReserve(req.body)
+        const findTitle = await Course.findOne({where:{title:title}})
+        // console.log("----------------------------------------------")
+            console.log(findTitle)
+        // if(findTitle){
+        const result = await Reservation.create({status, date , time , courseId:findTitle.dataValues.id})
         res.status(200).json(result)
+        // }
     }catch(err){
         next(err)
     }

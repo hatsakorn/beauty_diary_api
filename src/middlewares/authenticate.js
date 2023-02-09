@@ -8,7 +8,7 @@ module.exports = async (req,res,next) => {
         if(!authorization||!authorization.startsWith('Bearer')){
             createError('you are not authorized',401)
         }
-        console.log(authorization)
+        // console.log(authorization)
         const token = authorization.split(' ')[1]
         const payload = jwt.verify(token,process.env.JWT_SECRET_KEY)
         const user = await User.findOne({

@@ -16,8 +16,11 @@ const reserveSchema = Joi.object({
         'string.empty':'time is required',
         'string.base':'time must be string'
     }),
-    transactionId: Joi.number().required(),
-    employeeId: Joi.number()
+    title:Joi.string().trim().required().messages({
+        'any.required':'title is required',
+        'string.empty':'title is required',
+        'string.base':'title must be string'
+    }),
 
 
 })

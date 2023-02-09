@@ -16,13 +16,13 @@ module.exports = (sequelize,DataTypes) => {
         }
     },{
         underscored:true,
+        timestamps: false
     }
     )
     employee.associate = db => {
         employee.hasMany(db.Reservation,{
             foreignKey:{
                 name:"employeeId",
-                allowNull:false
             },
             onDelete: 'RESTRICT'
         })

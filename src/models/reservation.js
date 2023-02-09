@@ -1,14 +1,15 @@
 module.exports = (sequelize,DataTypes) => {
+    const reStatus = ['available','pending','complete']
     const Reservation = sequelize.define('Reservation',{
         status:{
-            type:DataTypes.STRING,
+            type:DataTypes.ENUM(...reStatus),
             allowNull:false,
             validate:{
                 notEmpty: true
             }
         },
         date:{
-            type:DataTypes.DATE,
+            type:DataTypes.DATEONLY,
             allowNull:false,
             validate:{
                 notEmpty: true
@@ -27,9 +28,9 @@ module.exports = (sequelize,DataTypes) => {
     }
     )
     Reservation.associate = db => {
-        Reservation.belongsTo(db.Transaction,{
+        Reservation.hasOne(db.Transaction,{
             foreignKey:{
-                name: "transactionId",
+                name: "reservationId",
                 allowNull: false
             },
             onDelete: 'RESTRICT'
@@ -37,6 +38,12 @@ module.exports = (sequelize,DataTypes) => {
         Reservation.belongsTo(db.Employee,{
             foreignKey:{
                 name: "employeeId",
+            },
+            onDelete: 'RESTRICT'
+        })
+        Reservation.belongsTo(db.Course,{
+            foreignKey:{
+                name: "courseId",
                 allowNull: false
             },
             onDelete: 'RESTRICT'
