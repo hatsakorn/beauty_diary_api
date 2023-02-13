@@ -14,6 +14,13 @@ module.exports = (sequelize,DataTypes) => {
                 notEmpty: true
             }
         },
+        timeUse:{
+            type:DataTypes.STRING,
+            allowNull:false,
+            validate:{
+                notEmpty: true
+            }
+        },
         discount:{
             type:DataTypes.DECIMAL(10,2),
             allowNull:false,

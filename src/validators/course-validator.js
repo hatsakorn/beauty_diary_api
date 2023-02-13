@@ -12,6 +12,11 @@ const courseSchema = Joi.object({
         'string.empty':'price is required1',
         'string.base':'price must be string'
     }),
+    timeUse:Joi.string().trim().required().messages({
+        'any.required':'timeUse is required',
+        'string.empty':'timeUse is required1',
+        'string.base':'timeUse must be string'
+    }),
     discount:Joi.number().precision(2).required().messages({
         'any.required':'discount is required',
         'number.base':'discount must be number',

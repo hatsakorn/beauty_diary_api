@@ -22,10 +22,9 @@ const packageSchema = Joi.object({
     //     'string.empty':'description is required',
     //     'string.base':'description must be string'
     // }),
-    packageImage: Joi.string(),
-    adsImage: Joi.string()
+    packageImage: Joi.string().allow(null),
+    adsImage: Joi.string().allow(null)
 
 })
-
 
 exports.validatePackage = validate(packageSchema)

@@ -2,16 +2,14 @@ module.exports = (sequelize,DataTypes) => {
     const Transaction = sequelize.define('Transaction',{
         paymentDetail:{
             type:DataTypes.STRING,
-            allowNull:false,
             validate:{
-                notEmpty: true
+                notEmpty: false
             }
         },
         verifyImage:{
             type:DataTypes.STRING,
-            allowNull:false,
             validate:{
-                notEmpty: true
+                notEmpty: false
             }
         }
     },{
@@ -29,14 +27,12 @@ module.exports = (sequelize,DataTypes) => {
             Transaction.belongsTo(db.Package,{
                 foreignKey:{
                     name: "packageId",
-                    allowNull: true
                 },
                 onDelete: 'RESTRICT'
         })
             Transaction.belongsTo(db.Reservation,{
                 foreignKey:{
                     name: "reservationId",
-                    allowNull: true
                 },
                 onDelete: 'RESTRICT'
         })

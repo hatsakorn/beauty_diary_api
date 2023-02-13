@@ -44,7 +44,6 @@ module.exports = (sequelize,DataTypes) => {
         Package.hasMany(db.Transaction,{
             foreignKey:{
                 name:"packageId",
-                allowNull:false
             },
             onDelete: 'RESTRICT'
         })

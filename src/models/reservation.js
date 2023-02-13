@@ -16,7 +16,7 @@ module.exports = (sequelize,DataTypes) => {
             }
         },
         time:{
-            type:DataTypes.TIME,
+            type:DataTypes.STRING,
             allowNull:false,
             validate:{
                 notEmpty: true
@@ -31,7 +31,6 @@ module.exports = (sequelize,DataTypes) => {
         Reservation.hasOne(db.Transaction,{
             foreignKey:{
                 name: "reservationId",
-                allowNull: false
             },
             onDelete: 'RESTRICT'
         })
