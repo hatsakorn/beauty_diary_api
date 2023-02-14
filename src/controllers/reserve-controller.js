@@ -56,6 +56,18 @@ exports.getSchedule = async (req,res,next) => {
         next(err)
     }
 }
+exports.getScheduleCourse = async (req,res,next) => {
+    try{
+        const schedule = await Reservation.findAll({
+            include:[{
+                model:Course
+            }]
+        })
+        res.status(200).json(schedule)
+    }catch(err){
+        next(err)
+    }
+}
 
 exports.CountTimeFromReserve = async (req,res,next) => {
     try{
@@ -97,3 +109,12 @@ exports.getTime = async (req,res,next) => {
         next(err)
     }
 }
+
+exports.updateStatus = async (req,res,next) => {
+    try{
+        const value = req.body
+        const result = await Reservation.update(value,{where:{id:req.params.id}})
+        res.status(200).json(result)
+    }catch(err){
+        next(err)
+    }}
