@@ -35,12 +35,17 @@ exports.createCourses = async (req,res,next) => {
 
 exports.createSchedule = async (req,res,next) => {
     try{
-        const {title,status,date,time} = validateReserve(req.body)
-        const findTitle = await Course.findOne({where:{title:title}})
-        // console.log("----------------------------------------------")
-            console.log(findTitle)
+        const value = validateReserve(req.body)
+        // console.log(req.body)
+        value.userId = req.user.id
+        // const {title,status,date,time} 
+        const findTitle = await Course.findOne({where:{title:value.title}})
+        // // console.log("----------------------------------------------")
+            // console.log(findTitle)
         // if(findTitle){
-        const result = await Reservation.create({status, date , time , courseId:findTitle.dataValues.id})
+        value.courseId = findTitle.dataValues.id
+        console.log(value)
+        const result = await Reservation.create(value)
         res.status(200).json(result)
         // }
     }catch(err){
@@ -59,8 +64,22 @@ exports.getSchedule = async (req,res,next) => {
 exports.getScheduleCourse = async (req,res,next) => {
     try{
         const schedule = await Reservation.findAll({
+            where:{status:"pending"},
             include:[{
-                model:Course
+                model:Course,
+            }]
+        })
+        res.status(200).json(schedule)
+    }catch(err){
+        next(err)
+    }
+}
+exports.getCompletedCourse = async (req,res,next) => {
+    try{
+        const schedule = await Reservation.findAll({
+            where:{status:"complete"},
+            include:[{
+                model:Course,
             }]
         })
         res.status(200).json(schedule)
@@ -113,7 +132,8 @@ exports.getTime = async (req,res,next) => {
 exports.updateStatus = async (req,res,next) => {
     try{
         const value = req.body
-        const result = await Reservation.update(value,{where:{id:req.params.id}})
+        // console.log(value)
+        const result = await Reservation.update(value,{where:{id:value.id}})
         res.status(200).json(result)
     }catch(err){
         next(err)

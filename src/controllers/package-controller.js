@@ -40,9 +40,9 @@ exports.deletePackage = async (req,res,next) => {
     try{
         // console.log(req.params)
         const value = req.params
-        // console.log(value.id)
+        // console.log(value)
         await Package.destroy({where:{
-             id:value.id
+             id:+value.id
         }})
 
         res.status(204).json()

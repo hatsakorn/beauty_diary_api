@@ -47,6 +47,13 @@ module.exports = (sequelize,DataTypes) => {
             },
             onDelete: 'RESTRICT'
         })
+        Reservation.belongsTo(db.User,{
+            foreignKey:{
+                name: "userId",
+                allowNull: false
+            },
+            onDelete: 'RESTRICT'
+        })
     }
     return Reservation
 }

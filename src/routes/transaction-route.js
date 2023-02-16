@@ -1,12 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const transactionController = require('../controllers/transaction-contoller')
+const transactionController = require('../controllers/transaction-contoller');
+const authenticate = require('../middlewares/authenticate');
 
-router.get('/get/:userId',transactionController.getAllTransaction)
-router.get('/topup/:userId',transactionController.getSumTopup)
-router.get('/package/:userId',transactionController.getTitlePrice)
+router.get('/gets', authenticate,transactionController.getAllCourses)
+router.get('/get', authenticate,transactionController.getAllCourse)
+router.get('/topup',authenticate,transactionController.getSumTopup)
+router.get('/package',authenticate,transactionController.getTitlePrice)
 
-router.post('/reserve',transactionController.createTransactionCourse)
+router.post('/reserve',authenticate,transactionController.createTransactionCourse)
+router.get('/balance',authenticate,transactionController.getBalance)
 
 
 module.exports = router
